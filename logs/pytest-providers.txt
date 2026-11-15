@@ -1,0 +1,121 @@
+...x.x.........x........................................................ [ 20%]
+........................................................................ [ 40%]
+........................................................................ [ 60%]
+........................................................................ [ 80%]
+........................................................................ [100%]Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b394a570>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b393cd70>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b393da00>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3afc380>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b393cf20>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3aeacf0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39654f0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39655e0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39829f0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3983a10>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3965520>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b393e0c0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39f1b80>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39f2570>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3800590>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b381f800>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3801940>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38036e0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39c17f0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3980c50>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3836f90>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3835460>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b385a240>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b385a210>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3879be0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3879a90>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3878770>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3a42ff0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38003b0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b381c170>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38028d0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38d7710>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38d4e30>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38d4470>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b38d4500>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37aafc0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37f26c0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37f2690>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37f94f0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37fb830>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37faf90>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37f9be0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b37f1d90>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b378bb30>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3349cd0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3348740>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3356d20>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3328c20>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b3348aa0>
+Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x7f50b39c1b80>
+
+=============================== warnings summary ===============================
+tests/test_tool_call_ids_providers.py::test_tool_call_ids_are_repaired_on_every_route[openrouter/z-ai/glm-5.3-empty-id-streamed]
+  /workspace/.venv/lib/python3.12/site-packages/pydantic/_internal/_generate_schema.py:1480: UserWarning: Item 'summary' on TypedDict class 'ChatCompletionReasoningItem' is using the `ReadOnly` qualifier. Pydantic will not protect items from any mutation on dictionary instances.
+    warnings.warn(
+
+tests/test_tool_call_ids_providers.py: 52 warnings
+  /workspace/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/model_response_utils.py:18: PydanticDeprecatedSince211: Accessing the 'model_computed_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    attribute: Final[_AttributeView] = {"value": getattr(source, name)}
+
+tests/test_tool_call_ids_providers.py: 52 warnings
+  /workspace/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/model_response_utils.py:18: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    attribute: Final[_AttributeView] = {"value": getattr(source, name)}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+357 passed, 3 xfailed, 105 warnings in 146.84s (0:02:26)
+OPENAI_API_KEY is not set, skipping trace export

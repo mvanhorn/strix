@@ -1,0 +1,8 @@
+......................................F...........................       [100%]
+=================================== FAILURES ===================================
+E   AssertionError: add ledger phrasings for: ['query_language_injection']
+    assert not {'query_language_injection'}
+/workspace/tests/test_report_coverage.py:209: AssertionError: add ledger phrasings for: ['query_language_injection']
+=========================== short test summary info ============================
+FAILED tests/test_report_coverage.py::test_every_vulnerability_skill_declares_its_phrasings
+1 failed, 65 passed in 9.68s

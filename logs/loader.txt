@@ -1,0 +1,18 @@
+framework_skills: ['django', 'fastapi', 'nestjs', 'nextjs', 'rails']
+rails_in_all_names: True
+django_in_all_names: True
+validate_rails: None
+validate_django: None
+load_rails_keys: ['rails']
+load_django_keys: ['django']
+rails_has_permit: True
+rails_body_chars: 13169
+django_body_chars: 10691
+rails_prompt_has_tag: True
+django_prompt_has_tag: True
+rails_prompt_has_permit: True
+rails_prompt_len: 113465
+django_prompt_len: 110989
+rails_after_cache: True
+django_after_cache: True
+available_lists_rails: True

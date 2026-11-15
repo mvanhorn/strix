@@ -1,0 +1,58 @@
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: B607,B603,B101,B601,B404
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	using config: pyproject.toml
+[main]	INFO	running on Python 3.12.3
+[manager]	WARNING	Test in comment: URL is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secret is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: boolean is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: flag is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secret is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:179
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:180
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:181
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:182
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:183
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:184
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:185
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:187
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:188
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:179
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:184
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:186
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:187
+[tester]	WARNING	nosec encountered (B606), but no failed test on file strix/interface/update_check.py:294
+[tester]	WARNING	nosec encountered (B104), but no failed test on file strix/interface/utils.py:1461
+[tester]	WARNING	nosec encountered (B104), but no failed test on file strix/interface/utils.py:1461
+[manager]	WARNING	Test in comment: prompts is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: HTML is not a test name or id, ignoring
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:02
+
+Run started:2026-11-15 17:04:24.841300+00:00
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 38352
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 12
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
