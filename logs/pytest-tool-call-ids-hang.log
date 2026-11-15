@@ -1,0 +1,7 @@
+=== GNU timeout 40s: tests/test_tool_call_ids_providers.py on upstream/main ===
+...x.x.........x........................................................ [ 20%]
+....main_timeout_exit:124
+
+=== GNU timeout 40s: same test on feat/run-findings-diff ===
+...x.x.........x........................................................ [ 20%]
+..............feat_timeout_exit:124

@@ -1,0 +1,188 @@
+# commands.log
+# Method: fixture runs written with strix.report
+# (strix.report.writer.write_run_record + write_vulnerabilities, strix.report.sarif.write_sarif)
+# cwd=/tmp/strix-diff-demo; PATH includes the local uv venv so `strix` is the built CLI
+
+$ strix diff before-fix after-fix
+
+Comparing before-fix -> after-fix
+  before-fix  2026-11-01T10:00:00+00:00  quick  https://app.example.com
+  after-fix  2026-11-02T12:00:00+00:00  quick  https://app.example.com
+
+New (2)
+  high  Command injection in upload handler  upload.py:40  vuln-0003
+  high  SQL Injection in get_user  db/query.py:12  vuln-0001
+
+Fixed (3)
+  high  Cross-site scripting in search  search.py:18  vuln-0002
+  high  SQL Injection in get_user  app.py:4  vuln-0001
+  medium  IDOR in user profile  users.py:9  vuln-0004
+
+Still present (1)
+  high -> medium  CSRF on settings form  settings.py:22  vuln-0003 -> vuln-0002
+
+2 new, 3 fixed, 1 still present
+
+[exit 0]
+
+$ strix diff before-fix after-fix --match class
+
+Comparing before-fix -> after-fix
+  before-fix  2026-11-01T10:00:00+00:00  quick  https://app.example.com
+  after-fix  2026-11-02T12:00:00+00:00  quick  https://app.example.com
+
+New (1)
+  high  Command injection in upload handler  upload.py:40  vuln-0003
+
+Fixed (2)
+  high  Cross-site scripting in search  search.py:18  vuln-0002
+  medium  IDOR in user profile  users.py:9  vuln-0004
+
+Still present (2)
+  high  SQL Injection in get_user  app.py:4 -> db/query.py:12  vuln-0001
+  high -> medium  CSRF on settings form  settings.py:22  vuln-0003 -> vuln-0002
+
+1 new, 2 fixed, 2 still present
+
+[exit 0]
+
+$ strix diff before-fix after-fix --json | jq .
+{
+  "baseline": {
+    "ended_at": "2026-11-01T10:00:00+00:00",
+    "name": "before-fix",
+    "path": "/tmp/strix-diff-demo/strix_runs/before-fix",
+    "scan_mode": "quick",
+    "started_at": "2026-11-01T10:00:00+00:00",
+    "status": "completed",
+    "targets": [
+      "https://app.example.com"
+    ]
+  },
+  "current": {
+    "ended_at": "2026-11-02T12:00:00+00:00",
+    "name": "after-fix",
+    "path": "/tmp/strix-diff-demo/strix_runs/after-fix",
+    "scan_mode": "quick",
+    "started_at": "2026-11-02T12:00:00+00:00",
+    "status": "completed",
+    "targets": [
+      "https://app.example.com"
+    ]
+  },
+  "fixed": [
+    {
+      "id_baseline": "vuln-0002",
+      "id_current": null,
+      "location": "search.py:18",
+      "location_baseline": "search.py:18",
+      "location_current": null,
+      "severity": "high",
+      "severity_baseline": "high",
+      "severity_current": null,
+      "title": "Cross-site scripting in search"
+    },
+    {
+      "id_baseline": "vuln-0001",
+      "id_current": null,
+      "location": "app.py:4",
+      "location_baseline": "app.py:4",
+      "location_current": null,
+      "severity": "high",
+      "severity_baseline": "high",
+      "severity_current": null,
+      "title": "SQL Injection in get_user"
+    },
+    {
+      "id_baseline": "vuln-0004",
+      "id_current": null,
+      "location": "users.py:9",
+      "location_baseline": "users.py:9",
+      "location_current": null,
+      "severity": "medium",
+      "severity_baseline": "medium",
+      "severity_current": null,
+      "title": "IDOR in user profile"
+    }
+  ],
+  "match": "strict",
+  "new": [
+    {
+      "id_baseline": null,
+      "id_current": "vuln-0003",
+      "location": "upload.py:40",
+      "location_baseline": null,
+      "location_current": "upload.py:40",
+      "severity": "high",
+      "severity_baseline": null,
+      "severity_current": "high",
+      "title": "Command injection in upload handler"
+    },
+    {
+      "id_baseline": null,
+      "id_current": "vuln-0001",
+      "location": "db/query.py:12",
+      "location_baseline": null,
+      "location_current": "db/query.py:12",
+      "severity": "high",
+      "severity_baseline": null,
+      "severity_current": "high",
+      "title": "SQL Injection in get_user"
+    }
+  ],
+  "still_present": [
+    {
+      "id_baseline": "vuln-0003",
+      "id_current": "vuln-0002",
+      "location": "settings.py:22",
+      "location_baseline": "settings.py:22",
+      "location_current": "settings.py:22",
+      "severity": "medium",
+      "severity_baseline": "high",
+      "severity_current": "medium",
+      "title": "CSRF on settings form"
+    }
+  ],
+  "summary": {
+    "fixed": 3,
+    "new": 2,
+    "severity_changed": 1,
+    "still_present": 1
+  },
+  "warnings": []
+}
+
+[exit 0]
+
+$ strix diff before-fix after-fix --fail-on-new high; echo $?
+
+Comparing before-fix -> after-fix
+  before-fix  2026-11-01T10:00:00+00:00  quick  https://app.example.com
+  after-fix  2026-11-02T12:00:00+00:00  quick  https://app.example.com
+
+New (2)
+  high  Command injection in upload handler  upload.py:40  vuln-0003
+  high  SQL Injection in get_user  db/query.py:12  vuln-0001
+
+Fixed (3)
+  high  Cross-site scripting in search  search.py:18  vuln-0002
+  high  SQL Injection in get_user  app.py:4  vuln-0001
+  medium  IDOR in user profile  users.py:9  vuln-0004
+
+Still present (1)
+  high -> medium  CSRF on settings form  settings.py:22  vuln-0003 -> vuln-0002
+
+2 new, 3 fixed, 1 still present
+
+1
+
+[exit 1]
+
+$ strix diff before-fix missing-run
+strix: error: No run named 'missing-run' under ./strix_runs.
+Available runs:
+  before-fix
+  after-fix
+
+[exit 1]
+

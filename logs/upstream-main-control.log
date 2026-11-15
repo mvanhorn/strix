@@ -1,0 +1,107 @@
+=== control: tests that fail or hang on clean upstream/main ===
+
+--- uv run pytest tests/test_pricing.py::test_resolves_common_bare_model_names -q ---
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________________ test_resolves_common_bare_model_names _____________________
+
+    def test_resolves_common_bare_model_names() -> None:
+        resolve_litellm_model.cache_clear()
+        assert resolve_litellm_model("deepseek-v4-flash") == "deepseek/deepseek-v4-flash"
+        assert resolve_litellm_model("openai/deepseek-v4-flash") == "deepseek/deepseek-v4-flash"
+        # LiteLLM prices grok-4.5 identically under xai/, perplexity/xai/ and
+        # openrouter/x-ai/, so the resolver may return any of them; the contract
+        # is a provider-qualified name LiteLLM can price.
+        grok = resolve_litellm_model("grok-4.5")
+>       assert grok is not None
+E       assert None is not None
+
+/tmp/strix-main-check/tests/test_pricing.py:56: AssertionError
+=========================== short test summary info ============================
+FAILED ../tmp/strix-main-check/tests/test_pricing.py::test_resolves_common_bare_model_names
+1 failed in 3.21s
+
+--- phrasing coverage on main ---
+ Downloaded pydantic-core
+ Downloaded tokenizers
+ Downloaded virtualenv
+ Downloaded hf-xet
+ Downloaded cryptography
+ Downloaded pillow
+ Downloaded ruff
+ Downloaded botocore
+ Downloaded pyright
+ Downloaded mypy
+ Downloaded litellm
+      Built strix-agent @ file:///tmp/strix-main-check
+Installed 115 packages in 204ms
+F                                                                        [100%]
+=================================== FAILURES ===================================
+____________ test_every_vulnerability_skill_declares_its_phrasings _____________
+
+    def test_every_vulnerability_skill_declares_its_phrasings() -> None:
+        """A new skill without phrasings would be matched by its filename alone,
+        which is how the false gap above got published."""
+        missing = _vulnerability_skill_names() - set(_SKILL_PHRASINGS)
+    
+>       assert not missing, f"add ledger phrasings for: {sorted(missing)}"
+E       AssertionError: add ledger phrasings for: ['query_language_injection']
+E       assert not {'query_language_injection'}
+
+tests/test_report_coverage.py:209: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_report_coverage.py::test_every_vulnerability_skill_declares_its_phrasings
+1 failed in 0.64s
+
+=== uv run pytest tests/test_budget_pause_policy.py -q --maxfail=1 on upstream/main ===
+F
+=================================== FAILURES ===================================
+____ test_pause_policy_parks_every_agent_at_the_limit_and_resumes_in_place _____
+
+tmp_path = PosixPath('/tmp/pytest-of-ubuntu/pytest-18/test_pause_policy_parks_every_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x7fd8aad0c3b0>
+
+    @pytest.mark.asyncio
+    async def test_pause_policy_parks_every_agent_at_the_limit_and_resumes_in_place(
+        tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    ) -> None:
+        scan = _Scan(tmp_path, monkeypatch, max_budget_usd=5.0)
+        agents = ("root", "child-a", "child-b")
+    
+        with patch("strix.core.hooks.get_global_report_state", return_value=scan.ledger):
+            await scan.start_root(calls=100)
+>           await scan.start_child("child-a", calls=100)
+
+tests/test_budget_pause_policy.py:241: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <tests.test_budget_pause_policy._Scan object at 0x7fd8aa844800>
+child_id = 'child-a', calls = 100
+
+    async def start_child(self, child_id: str, *, calls: int) -> None:
+        self.ledger.remaining[child_id] = calls
+        await self.coordinator.register(child_id, "recon", parent_id="root")
+>       await _start_child_runner(
+            parent_ctx=self.root_ctx,
+            coordinator=self.coordinator,
+            agents_db_path=self.db_path,
+            sessions_to_close=self.sessions,
+            run_config=self.run_config,
+            max_turns=500,
+            interactive=False,
+            child_agent=MagicMock(),
+            child_id=child_id,
+            name=f"recon-{child_id}",
+            parent_id="root",
+            task="probe things",
+            initial_input=[],
+            hooks=self.hooks,
+        )
+E       TypeError: _start_child_runner() missing 1 required keyword-only argument: 'skills'
+
+tests/test_budget_pause_policy.py:202: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_budget_pause_policy.py::test_pause_policy_parks_every_agent_at_the_limit_and_resumes_in_place
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 1 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+1 failed in 1.36s
+exit:1

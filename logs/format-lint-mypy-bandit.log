@@ -1,0 +1,206 @@
+=== make format-check ===
+uv run ruff format --check .
+259 files already formatted
+format-check exit:0
+
+=== make lint-check ===
+uv run ruff check .
+[1;32mAll checks passed![0m
+lint-check exit:0
+
+=== uv run mypy strix/ ===
+pyproject.toml: note: unused section(s): module = ['tests.*']
+Success: no issues found in 139 source files
+mypy exit:0
+
+=== uv run bandit ===
+[main]	INFO	profile include tests: None
+[main]	INFO	profile exclude tests: B607,B101,B601,B404,B603
+[main]	INFO	cli include tests: None
+[main]	INFO	cli exclude tests: None
+[main]	INFO	using config: pyproject.toml
+[main]	INFO	running on Python 3.12.3
+[manager]	WARNING	Test in comment: URL is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secret is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: boolean is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: flag is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: a is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: secret is not a test name or id, ignoring
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:179
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:180
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:181
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:182
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:183
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:184
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:185
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:187
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:188
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:179
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:184
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:186
+[tester]	WARNING	nosec encountered (B105), but no failed test on file strix/config/codex.py:187
+[tester]	WARNING	nosec encountered (B606), but no failed test on file strix/interface/update_check.py:294
+[tester]	WARNING	nosec encountered (B104), but no failed test on file strix/interface/utils.py:1461
+[tester]	WARNING	nosec encountered (B104), but no failed test on file strix/interface/utils.py:1461
+[manager]	WARNING	Test in comment: prompts is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: not is not a test name or id, ignoring
+[manager]	WARNING	Test in comment: HTML is not a test name or id, ignoring
+Working... ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 0:00:02
+
+Run started:2026-11-15 17:47:36.454648+00:00
+
+Test results:
+	No issues identified.
+
+Code scanned:
+	Total lines of code: 38897
+	Total lines skipped (#nosec): 0
+	Total potential issues skipped due to specifically being disabled (e.g., #nosec BXXX): 12
+
+Run metrics:
+	Total issues (by severity):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+	Total issues (by confidence):
+		Undefined: 0
+		Low: 0
+		Medium: 0
+		High: 0
+Files skipped (0):
+bandit exit:0
+
+=== uv run pyright (new files) ===
+/workspace/strix/interface/cli_args.py
+  /workspace/strix/interface/cli_args.py:486:12 - error: Type of "targets_info" is partially unknown
+    Type of "targets_info" is "Any | list[Unknown]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:489:9 - error: Type of "target" is partially unknown
+    Type of "target" is "Any | Unknown" (reportUnknownVariableType)
+  /workspace/strix/interface/cli_args.py:489:19 - error: Type of "targets_info" is partially unknown
+    Type of "targets_info" is "Any | list[Unknown]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:492:9 - error: Type of "details" is partially unknown
+    Type of "details" is "Unknown | dict[Unknown, Unknown]" (reportUnknownVariableType)
+  /workspace/strix/interface/cli_args.py:492:19 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:493:12 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:493:51 - error: Type of "get" is partially unknown
+    Type of "get" is "Unknown | Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:495:42 - error: Argument type is unknown
+    Argument corresponds to parameter "args" in function "__init__" (reportUnknownArgumentType)
+  /workspace/strix/interface/cli_args.py:499:12 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:501:9 - error: Type of "cloned" is partially unknown
+    Type of "cloned" is "Unknown | None" (reportUnknownVariableType)
+  /workspace/strix/interface/cli_args.py:501:18 - error: Type of "get" is partially unknown
+    Type of "get" is "Unknown | Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:504:21 - error: Argument type is unknown
+    Argument corresponds to parameter "args" in function "__init__" (reportUnknownArgumentType)
+  /workspace/strix/interface/cli_args.py:515:48 - error: Type of "targets_info" is partially unknown
+    Type of "targets_info" is "Any | list[Unknown]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:515:48 - error: Argument type is partially unknown
+    Argument corresponds to parameter "targets_info" in function "collect_local_sources"
+    Argument type is "Any | list[Unknown]" (reportUnknownArgumentType)
+  /workspace/strix/interface/cli_args.py:528:17 - error: Type of "workspace_file" is partially unknown
+    Type of "workspace_file" is "Any | Unknown" (reportUnknownVariableType)
+  /workspace/strix/interface/cli_args.py:530:42 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:530:42 - error: Argument type is partially unknown
+    Argument corresponds to parameter "object" in function "__new__"
+    Argument type is "Unknown | Literal['']" (reportUnknownArgumentType)
+  /workspace/strix/interface/cli_args.py:531:40 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/interface/cli_args.py:531:40 - error: Argument type is partially unknown
+    Argument corresponds to parameter "object" in function "__new__"
+    Argument type is "Unknown | Literal['']" (reportUnknownArgumentType)
+/workspace/strix/report/sarif.py
+  /workspace/strix/report/sarif.py:627:9 - error: Type of "location" is unknown (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:630:35 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:631:36 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:632:35 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:633:9 - error: Type of "start_line" is partially unknown
+    Type of "start_line" is "Unknown | None" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:633:22 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:636:17 - error: Argument type is partially unknown
+    Argument corresponds to parameter "o" in function "__init__"
+    Argument type is "Unknown | None" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:643:9 - error: Type of "end_line" is partially unknown
+    Type of "end_line" is "Unknown | None" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:643:20 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:644:17 - error: Argument type is partially unknown
+    Argument corresponds to parameter "o" in function "__init__"
+    Argument type is "Unknown | None" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:748:9 - error: Type of "entry" is unknown (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:751:41 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:751:41 - error: Argument type is unknown
+    Argument corresponds to parameter "object" in function "__new__" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:754:41 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:754:41 - error: Argument type is unknown
+    Argument corresponds to parameter "object" in function "__new__" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:758:40 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:760:89 - error: Argument type is partially unknown
+    Argument corresponds to parameter "entry" in function "_build_coverage_result"
+    Argument type is "dict[Unknown, Unknown]" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:766:5 - error: Type of "completeness" is partially unknown
+    Type of "completeness" is "dict[Unknown, Unknown]" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:767:5 - error: Type of "caveats" is partially unknown
+    Type of "caveats" is "Unknown | None" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:767:15 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:768:5 - error: Type of "caveats" is partially unknown
+    Type of "caveats" is "list[Unknown]" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:770:63 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:770:63 - error: Argument type is unknown
+    Argument corresponds to parameter "o" in function "__new__" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:773:58 - error: Argument type is unknown
+    Argument corresponds to parameter "object" in function "__new__" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:773:72 - error: Type of "caveat" is unknown (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:835:9 - error: Type of "location" is unknown (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:840:35 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:841:9 - error: Type of "start_line" is partially unknown
+    Type of "start_line" is "Unknown | None" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:841:22 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:842:9 - error: Type of "end_line" is partially unknown
+    Type of "end_line" is "Unknown | None" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:842:20 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:843:34 - error: Argument type is partially unknown
+    Argument corresponds to parameter "o" in function "__init__"
+    Argument type is "Unknown | None" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:852:17 - error: Argument type is partially unknown
+    Argument corresponds to parameter "o" in function "__init__"
+    Argument type is "Unknown | None" (reportUnknownArgumentType)
+  /workspace/strix/report/sarif.py:855:33 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:865:31 - error: Type of "get" is partially unknown
+    Type of "get" is "Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:1019:9 - error: Type of "uri" is partially unknown
+    Type of "uri" is "Unknown | Any | Literal['']" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:1019:15 - error: Type of "get" is partially unknown
+    Type of "get" is "Any | Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+  /workspace/strix/report/sarif.py:1020:9 - error: Type of "region" is partially unknown
+    Type of "region" is "Any | dict[Unknown, Unknown]" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:1021:9 - error: Type of "sl" is partially unknown
+    Type of "sl" is "Unknown | Any | None" (reportUnknownVariableType)
+  /workspace/strix/report/sarif.py:1021:14 - error: Type of "get" is partially unknown
+    Type of "get" is "Any | Overload[(key: Unknown, default: None = None, /) -> (Unknown | None), (key: Unknown, default: Unknown, /) -> Unknown, (key: Unknown, default: _T@get, /) -> (Unknown | _T@get)]" (reportUnknownMemberType)
+59 errors, 0 warnings, 0 informations
+WARNING: there is a new pyright version available (v1.1.411 -> v1.1.414).
+Please install the new version or set PYRIGHT_PYTHON_FORCE_VERSION to `latest`
+
+pyright-new exit:1
